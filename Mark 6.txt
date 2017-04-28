@@ -1,0 +1,679 @@
+// canvas 1 variables
+var moveBoxX;
+var moveBoxY;
+var stateOfBox;
+
+// canvas 2 variables
+var key;
+var moveKeyStartX;
+var moveKeyStartY;
+var moveKeyEndX;
+var moveKeyEndY;
+var mirror;
+var screwdriver;
+var myRoom;
+var keyLocation;
+var canvasNum;
+
+function preload() {
+  key = loadImage('https://dl.dropboxusercontent.com/s/ry8ay7am0uj58v3/key.png');
+  head = loadImage('https://dl.dropboxusercontent.com/s/jve3j9wwx6fytm7/5334.1L.png');
+  bullet = loadImage('https://dl.dropboxusercontent.com/s/qao6pk5uskp80ux/bullets_PNG1468.png');
+  myRoom = loadImage('https://dl.dropboxusercontent.com/s/hvjotg0ncp991js/8a218881fd950703fe52cad3c7d56979.jpg');
+  
+}
+
+
+function setup()
+{
+    createCanvas(800,600);
+  
+    // canvas 1 variables
+    moveBoxX = 50;
+    moveBoxY = 85;
+    stateOfBox = 1;
+  
+    moveCircleX = 730;
+    moveCircleY = 530;
+    stateOfCircle = 1;
+    // marks the location of the key
+    // 1 - is original location
+    // 2 - key is in transition
+    // 3 - key is in user location
+    keyLocation = 1;
+    // starting and ending locations of the key
+    moveKeyStartX = 230;
+    moveKeyStartY = 270;
+    moveKeyEndX = 40;
+    moveKeyEndY = 535;
+
+    headLocation = 11;
+    moveheadStartX = 500;
+    moveheadStartY = 300;
+    moveheadEndX = 250;
+    moveheadEndY = 50;
+  
+    // which canvas is in focus by default
+    canvas = 2;
+    
+}
+
+function draw()
+{
+    if (canvas == 1)
+    {
+        canvas1();
+    }
+    else if (canvas == 2)
+    {
+        canvas2();
+    }
+    else if (canvas == 3)
+    {
+        canvas3();
+    }
+    else if (canvas == 4)
+    {
+        convas4();
+    }
+    else if (canvas == 5)
+    {
+        convas5();
+    }
+
+    else
+    {
+        canvas = 1;
+    }
+    paintCanvasButtons();
+}
+
+// Canvas 1 demonstrates a moving rectangle controlled by a button
+function canvas1()
+{
+  background(125,125,125);
+  if (stateOfBox == 1)
+  {
+    moveBoxX = 50;
+    moveBoxY = 85;
+    fill(255,255,255);
+    rect(moveBoxX,moveBoxY,50,50);
+  }
+  else if (stateOfBox == 2)
+  {
+    // draw box
+    fill(255,255,255);
+    rect(moveBoxX,moveBoxY,50,50);
+    moveBoxX = moveBoxX + 2;
+    if (moveBoxX > 400)
+    {
+      moveBoxX = 400;
+      stateOfBox = 3;
+    }
+  }
+  else if (stateOfBox == 3)
+  {
+    moveBoxX = 400;
+    moveBoxY = 85;
+    fill(255,255,255);
+    rect(moveBoxX,moveBoxY,50,50); 
+  }
+  if (mouseX > 50 && mouseX < 50+100 && mouseY > 150 && mouseY < 150+50)
+    {
+    fill(15,139,11);
+    rect(50,150,100,50);
+    if (mouseIsPressed == true)
+    {
+      fill(255,50,50);
+      rect(50,150,100,50);
+      stateOfBox = 2;
+    }
+  }
+  else
+  {
+    fill(100,255,50);
+    rect(50,150,100,50);
+  }
+  fill(0,0,0);
+  text("move white",65,171);
+  text("box right",65,188);
+
+if (stateOfBox == 3)
+{
+  moveBoxX = 400;
+  moveBoxY = 85;
+  fill(255,255,255);
+  rect(moveBoxX,moveBoxY,50,50);
+}
+else if (stateOfBox == 2)
+{
+  fill(255,255,255);
+  rect(moveBoxX,moveBoxY,50,50);
+  moveBoxX = moveBoxX +2;
+  if (moveBoxX > 400)
+  {
+    moveBoxX = 400;
+    stateOfBox = 3;
+  }
+}
+else if (stateOfBox == 3)
+{
+  // draw box at destination location
+  moveBoxX = 50;
+  moveBoxY = 85;
+  fill(255,255,255);
+  rect(moveBoxX,moveBoxY,50,50);
+}
+  if (mouseX > 300 && mouseX < 300+100 && mouseY > 150 && mouseY < 150+50) 
+  {
+    fill(15,139,11);
+    rect(300,150,100,50);
+    if (mouseIsPressed == true)
+    {
+      fill(255,50,50);
+      rect(300,150,100,50);
+      stateOfBox = 1;
+    }
+  }
+else
+{
+  fill(247, 243, 34);
+  rect(300,150,100,50);
+}
+    {
+    fill(0,0,0);
+    text("Reset",335,180);
+}
+
+
+  if (stateOfBox == 3)
+  {
+    moveBoxX = 400;
+    moveBoxY = 85;
+    fill(255,255,255);
+    rect(moveBoxX,moveBoxY,50,50); 
+  } 
+  else if (stateOfBox == 4)
+  {
+    fill(255,255,255);
+    rect(moveBoxX,moveBoxY,50,50);
+    moveBoxY = moveBoxY + 4;
+    if (moveBoxY > 300)
+    {
+      moveBoxY = 300;
+      stateOfBox = 4;
+    }
+  }
+  else if (stateOfBox == 4)
+  {
+    // draw box at destination location
+    moveBoxX = 400;
+    moveBoxY = 350;
+    fill(255,255,255);
+    rect(moveBoxX,moveBoxY,50,50);
+  }
+  if (mouseX > 300 && mouseX < 300+100 && mouseY > 250 && mouseY < 250+100) 
+  {
+    fill(15,139,11);
+    rect(300,250,100,50);
+    if (mouseIsPressed == true)
+    {
+      fill(6,59,139);
+      rect(300,250,100,50);
+      stateOfBox = 4;
+    }
+  }
+  else 
+  {
+    fill(34,118,247);
+    rect(300,250,100,50);
+  }
+  {
+    fill(0,0,0);
+    text("move white",315,270);
+    text("box down", 315,285);
+  } 
+  
+  
+
+  
+  
+ if (stateOfCircle == 1)
+ {
+moveCircleX = 730
+moveCircleY = 530
+fill(158,22,22);
+ellipse(moveCircleX,moveCircleY,90,90); 
+ }
+  
+if (stateOfCircle == 2)
+{
+fill(158,22,22);
+ellipse(moveCircleX, moveCircleY,90,90);
+moveCircleY = moveCircleY - 4 
+
+  if (moveCircleY < 200)
+  {
+    moveCircleX = 730;
+    stateOfCircle = 3;
+  }
+}
+
+if (stateOfCircle == 3)
+  {
+    // draw box at destination location
+    moveCircleX = 730;
+    moveCircleY = 200;
+    fill(158,22,22);
+    ellipse(moveCircleX,moveCircleY,90,90);
+  }
+    
+    if (mouseX > 500 && mouseX < 500+100 && mouseY > 390 && mouseY < 390+50) 
+    {
+      fill(3,86,175);
+      rect(500,390,100,50);
+      if (mouseIsPressed == true)
+      {
+      fill(6,59,139);
+      rect(500,390,100,50);
+      stateOfCircle = 2;
+      }
+  }
+else
+{
+  fill(89,136,251);
+  rect(500,390,100,50);
+}
+  {
+    fill(0,0,0);
+  text("move up",530,420);
+  }
+
+   
+
+if (stateOfCircle == 4)
+{
+  moveCircleX = 730;
+  moveCircleY = 530;
+  fill(158,22,22);
+  ellipse(moveCircleX,moveCircleY,90,90);
+} 
+else if (stateOfCircle == 5)
+{
+  fill(158,22,22);
+  ellipse(moveCircleX,moveCircleY,90,90);
+  moveCircleX = moveCircleX +2;
+  if (moveCircleX > 400)
+  {
+    moveCircleX = 400;
+    stateOfCircle = 6;
+  }
+}
+else if (stateOfCircle == 6)
+{
+  // draw box at destination location
+  moveCircleX = 730;
+  moveCircleY = 530;
+  fill(158,22,22);
+  ellipse(moveCircleX,moveCircleY,90,90);
+}
+  
+  fill(192,67,0);
+  rect(500,300,100,50);
+  
+if (mouseX > 500 && mouseX < 500+100 && mouseY > 300 && mouseY < 300+50) 
+{
+  fill(255,89,0);
+  rect(500,300,100,50);
+  if (mouseIsPressed == true)
+  {
+    fill(192,67,0);
+    rect(500,300,100,50);
+    stateOfCircle = 4;
+  }
+}
+{
+  fill(0,0,0);
+  text("Reset",540,330);
+} 
+
+  
+  
+
+  if (stateOfCircle == 7)
+  {
+    moveCircleX = 450;
+    moveCircleY = 200;
+    fill(158,22,22);
+    ellipse(moveCircleX,moveCircleY,90,90);
+  } 
+ else if (stateOfCircle == 8)
+  {
+    fill(158,22,22);
+    ellipse(moveCircleX, moveCircleY,90,90);
+    moveCircleX = moveCircleX +4
+    if (moveCircleX > 400)
+    {
+      moveCircleX = 400;
+      stateOfCircle = 8;
+    }
+  }
+  else if (stateOfCircle == 8)
+  {
+    // draw box at destination location
+    moveCircleX = 730;
+    moveCircleY = 530;
+    fill(158,22,22);
+    ellipse(moveCircleX,moveCircleY,90,90);
+  }
+  
+  fill(31,255,0);
+  rect(500,450,100,50);
+  if (mouseX > 500 && mouseX < 500+100 && mouseY > 450 && mouseY < 450+50) 
+  {
+    fill(22,182,0);
+    rect(500,450,100,50);
+    if (mouseIsPressed == true)
+    {
+      fill(22,182,0);
+      rect(500,450,100,50);
+      stateOfCircle = 7;
+    }
+  }
+  
+    fill(0,0,0);
+    text("move left",530,480);
+  }
+
+
+
+function canvas2()
+{
+  background(125,125,125);
+  text("Move your mouse over the green areas and see the cursor change",50,110);  
+  circle1D = sqrt((mouseX - 250)*(mouseX - 250)+(mouseY - 175)*(mouseY - 175));
+// situation 1
+  // mouse is over rectangle
+  // draw a darker rectangle and draw a lighter circle
+  // change mouse cursor
+  if (mouseX > 50 && mouseX < 50+100 && mouseY > 150 && mouseY < 150+50)
+  {
+    // Darker Green Rectangle
+    fill(15,139,11);
+    rect(50,150,100,50);
+    // Lighter Green Circle
+    fill(100,255,50);
+    ellipse(250,175,100,100);
+    if (mouseIsPressed == true)
+    {
+      // Red Button
+      fill(255,50,50);
+      rect(50,150,100,50);
+      stateOfBox = 2;
+    }
+    
+    cursor(HAND);
+  }
+  // mouse is over circle
+  // draw a darker circle and draw a lighter rectangle
+  // change mouse cursor
+  else if (circle1D < 50)
+  {
+    // Darker Green Circle
+    fill(15,139,11);
+    ellipse(250,175,100,100);
+    
+    // Lighter Green Rectangle
+    fill(100,255,50);
+    rect(50,150,100,50);
+    
+    if (mouseIsPressed == true)
+    {
+      // Red Button
+      fill(255,50,50);
+      ellipse(250,175,100,100);
+      stateOfBox = 2;
+    }
+
+    // Define our own cursor
+    // Because the image is defined by the top left X,Y
+    // coordinates we must shift the image by half it's
+    // length and height to center it on our cursor
+    noCursor();
+    image(key,mouseX-300/9/2,mouseY-300/9/2,300/9,300/9);
+  }
+  // Mouse is not over either rectangle or circle
+  // Therefore we must draw both and show an arrow mouse cursor
+  else
+  {
+    // Lighter Green Rectangle
+    fill(100,255,50);
+    rect(50,150,100,50);
+    
+    // Lighter Green Circle
+    fill(100,255,50);
+    ellipse(250,175,100,100);
+    
+    // default cursor to arrow
+    cursor(ARROW);
+  }
+  
+  // label for rectangle
+  fill(0,0,0);
+  text("move mouse",65,171);
+  text("over me",65,188);
+
+  // label the circle button
+  fill(0,0,0);
+  text("move mouse",215,171);
+  text("over me",215,188);
+  
+}
+
+
+
+function canvas3()
+{
+   background(myRoom);
+  
+  paintCanvasButtons();
+  
+   itemGrid();
+   fill(0,0,0);
+   // if keyLocation is 1 draw the key in the original locaiton
+   if (keyLocation == 1)
+   {
+     moveKeyStartX = 230;
+     moveKeyStartY = 270;
+     image(key,moveKeyStartX,moveKeyStartY,300/9,300/9);
+   }
+   // if keyLocation is 2 then the key is in transit from original location to being in the "user's bag"
+   else if (keyLocation == 2)
+   {
+     image(key,moveKeyStartX,moveKeyStartY,300/9,300/9);
+
+     // move the key from the starting point to the ending point
+     if (moveKeyStartX > moveKeyEndX)
+     {
+       moveKeyStartX = moveKeyStartX - 5;
+     }
+     if (moveKeyStartY < moveKeyEndY)
+     {
+       moveKeyStartY = moveKeyStartY + 7;
+     }
+     if (!(moveKeyStartX > moveKeyEndX && moveKeyStartY < moveKeyEndY))
+     {
+       keyLocation = 3;
+     }
+   }
+  else if (keyLocation == 3)
+  {
+    
+    image(key,moveKeyEndX,moveKeyEndY,300/9,300/9);
+  }
+
+   if (mouseX > 230 && mouseX < 230+300/9 && mouseY > 270 && mouseY < 270+300/9)
+   {
+     cursor(HAND);
+     if (mouseIsPressed == true && keyLocation == 1)
+     {
+       keyLocation = 2;
+     }
+   }
+   else 
+   {
+     cursor(ARROW);
+   }
+  
+  
+  
+  if (headLocation == 11)
+  {
+    moveheadStartX = 500;
+    moveheadStartY = 300;
+ image(head,moveheadStartX,moveheadStartY,300/9,300/9);
+  }
+  else if (headLocation == 12)
+  {
+ image(head,moveheadStartX,moveheadStartY,300/9,300/9);
+
+    // move the key from the starting point to the ending point
+    if (moveheadStartX > moveheadEndX)
+    {
+      moveheadStartX = moveheadStartX - 5;
+    }
+    if (moveheadStartY < moveheadEndY)
+    {
+      moveheadStartY = moveheadStartY + 7;
+    }
+    if (!(moveheadStartX > moveheadEndX && moveheadStartY < moveheadEndY))
+    {
+      headLocation = 13;
+    }
+  }
+  else if (headLocation == 13)
+  {
+    image(head,moveheadEndX,moveheadEndY,300/9,300/9);
+  }
+  if (mouseX > 500 && mouseX < 500+300/9 && mouseY > 300 && mouseY < 300+300/9)
+  {
+    cursor(HAND);
+    if (mouseIsPressed == true && headLocation == 11)
+    {
+      headLocation = 12;
+    }
+  }
+  else 
+  {
+    cursor(ARROW);
+  }
+
+}
+
+
+
+function itemGrid()
+{
+  // background for item grid
+  fill(50,50,50);
+  rect(10,510,800-20,600-20);
+  
+  // left most box
+  fill(125,125,125);
+  rect(20,520,70,70);
+
+  // middle most box
+  fill(125,125,125);
+  rect(20+80,520,70,70);
+
+  // right most box
+  fill(125,125,125);
+  rect(20+80*2,520,70,70);
+
+}
+
+function paintCanvasButtons()
+{
+   myX = -25;
+   myY = -275;
+  
+
+   // Canvas 1 button
+  fill(255,255,255);
+  rect(myX+50,myY+300,100,50);
+  fill(0,0,0);
+  text("Puzzle 1",myX+73,myY+330);
+   if (canvas == 1)
+   {
+     strokeWeight(5);
+     fill(162,255,98);
+     rect(myX+50,myY+300,100,50);
+     fill(0,0,0);
+     text("Puzzle 1",myX+73,myY+330)
+   }
+   else
+   {
+     strokeWeight(1);
+   }
+
+
+   
+   // Canvas 2 button
+  fill(255,255,255);
+  rect(myX+170,myY+300,100,50);
+  fill(0,0,0);
+  text("Puzzle 2",myX+195,myY+330);
+
+   if (canvas == 2)
+   {
+     strokeWeight(5);
+     fill(162,255,98);
+     rect(myX+170,myY+300,100,50);
+     fill(0,0,0);
+     text("Puzzle 2",myX+195,myY+330);
+   }
+   else
+   {
+     strokeWeight(1);
+   }
+  
+
+
+
+   // Canvas 3 button
+   if (canvas == 3)
+   {
+     strokeWeight(5);
+   }
+   else
+   {
+     strokeWeight(1);
+   }
+   fill(255,255,255);
+   rect(myX+290,myY+300,100,50);
+   fill(0,0,0);
+   text("Puzzle 3",myX+315,myY+330);
+
+   if (mouseX > myX+50 && mouseX < myX+50+100 && mouseY > myY+300 && mouseY < myY+300+50 && mouseIsPressed)
+   {
+     canvas = 1;
+     stateOfBox = 1;
+   }
+  
+   if (mouseX > myX+170 && mouseX < myX+170+100 && mouseY > myY+300 && mouseY < myY+300+50 && mouseIsPressed)
+   {
+     canvas = 2;
+   } 
+
+   if (mouseX > myX+290 && mouseX < myX+290+100 && mouseY > myY+300 && mouseY < myY+300+50 && mouseIsPressed)
+   {
+     canvas = 3;
+     keyLocation = 1;
+    head
+   }
+
+}
+
+
+
+
